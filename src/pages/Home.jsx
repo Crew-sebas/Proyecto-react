@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import ProductList from "../components/ProductList";
 import CartIcon from "../components/CartIcon";
 import { motion } from "framer-motion";
-import fondo from "../assets/img/fond.jpg"; 
+import fondo from "../assets/img/fond.jpg";
 
 const allProducts = [
   { id: 1, name: "Celular Samsung", category: "Electrónica", price: 120000, image: "src/assets/img/samsung.jpg" },
@@ -39,10 +39,7 @@ function Home({ cart, addToCart, removeFromCart }) {
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: `url(${fondo})`,
-        backgroundAttachment: "fixed",
-      }}
+      style={{ backgroundImage: `url(${fondo})`, backgroundAttachment: "fixed" }}
     >
       <div className="backdrop-blur-sm bg-white/70 min-h-screen p-6">
         <motion.h1
@@ -55,29 +52,37 @@ function Home({ cart, addToCart, removeFromCart }) {
         </motion.h1>
 
         <motion.div
-          className="flex flex-col md:flex-row gap-4 mb-10 bg-white p-6 rounded-2xl shadow-xl border border-purple-300"
+          className="grid md:grid-cols-3 gap-6 mb-10 bg-gradient-to-r from-white via-gray-50 to-white p-6 rounded-3xl shadow-2xl border border-purple-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <input
-            type="text"
-            placeholder="Buscar productos..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="border border-gray-300 focus:border-purple-500 p-3 rounded w-full transition"
-          />
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="border border-gray-300 focus:border-purple-500 p-3 rounded w-full transition"
-          >
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
-          <div className="w-full">
-            <label className="text-sm font-medium text-gray-600 mb-1 block">Precio mínimo: ${minPrice}</label>
+          <div className="flex flex-col">
+            <label className="text-sm font-bold text-gray-700 mb-1 uppercase tracking-wide">🔍 Buscar Producto</label>
+            <input
+              type="text"
+              placeholder="Ej: Celular, Zapatillas..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="border border-gray-300 focus:ring-2 focus:ring-purple-500 p-3 rounded-lg transition bg-white shadow-sm"
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-sm font-bold text-gray-700 mb-1 uppercase tracking-wide">📂 Categoría</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="border border-gray-300 focus:ring-2 focus:ring-purple-500 p-3 rounded-lg transition bg-white shadow-sm"
+            >
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-sm font-bold text-gray-700 mb-1 uppercase tracking-wide">💰 Precio mínimo: ${minPrice}</label>
             <input
               type="range"
               min="0"
@@ -85,7 +90,7 @@ function Home({ cart, addToCart, removeFromCart }) {
               step="10000"
               value={minPrice}
               onChange={(e) => setMinPrice(Number(e.target.value))}
-              className="w-full accent-purple-500"
+              className="w-full accent-purple-600"
             />
           </div>
         </motion.div>

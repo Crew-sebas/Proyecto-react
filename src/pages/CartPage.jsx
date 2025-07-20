@@ -19,6 +19,13 @@ const CartPage = ({ cart, setCart }) => {
     setTimeout(() => navigate("/"), 3000);
   };
 
+  const handleRemove = (id) => {
+    const confirm = window.confirm("¿Estás seguro de que querés eliminar este producto del carrito?");
+    if (confirm) {
+      setCart(cart.filter((item) => item.id !== id));
+    }
+  };
+
   if (success) {
     return (
       <div className="p-6 text-center">
@@ -31,10 +38,10 @@ const CartPage = ({ cart, setCart }) => {
   }
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-6 text-red-500">🛒 Tu Carrito</h1>
+    <div className="p-6 bg-gradient-to-br from-blue-50 to-purple-100 min-h-screen">
+      <h1 className="text-3xl font-bold text-center mb-6 text-purple-700">🛒 Tu Carrito</h1>
 
-      <div className="grid gap-4">
+      <div className="grid gap-4 mb-8">
         {cart.map((item) => (
           <div
             key={item.id}
@@ -46,17 +53,25 @@ const CartPage = ({ cart, setCart }) => {
               className="w-24 h-24 object-contain rounded border"
             />
             <div className="flex-1">
-              <h2 className="text-xl font-semibold">{item.name}</h2>
-              <p className="text-gray-600">{item.category}</p>
+              <h2 className="text-xl font-semibold text-gray-800">{item.name}</h2>
+              <p className="text-gray-500">{item.category}</p>
+              <p className="text-lg font-bold text-green-700">${item.price}</p>
             </div>
-            <p className="text-lg font-bold text-right">${item.price}</p>
+            <button
+              onClick={() => handleRemove(item.id)}
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+            >
+              🗑 Eliminar
+            </button>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 bg-white p-6 rounded-xl shadow-md">
+      <div className="bg-white p-6 rounded-xl shadow-md max-w-xl mx-auto">
         <h2 className="text-xl font-semibold mb-2">🧾 Resumen de compra</h2>
-        <p className="text-lg mb-4">Total a pagar: <span className="font-bold text-green-700">${total}</span></p>
+        <p className="text-lg mb-4">
+          Total a pagar: <span className="font-bold text-green-700">${total}</span>
+        </p>
 
         <div className="flex gap-4">
           <button
